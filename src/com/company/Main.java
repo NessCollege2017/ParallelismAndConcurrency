@@ -16,9 +16,7 @@ public class Main {
 
 
         ScheduledExecutorService sched = Executors.newScheduledThreadPool(1);
-        sched.scheduleAtFixedRate(()->{
-            System.out.println(LocalTime.now());
-        }, 1, 1, TimeUnit.SECONDS);
+        sched.scheduleAtFixedRate(Main::displayTime, 1, 1, TimeUnit.SECONDS);
 
         pool.execute(herd::addSheepAndCount);
 
@@ -41,5 +39,8 @@ public class Main {
     //void accept(T result)
     public static void readData(String s){
         System.out.println("Read " + s);
+    }
+    public static void displayTime(){
+        System.out.println(LocalTime.now());
     }
 }
