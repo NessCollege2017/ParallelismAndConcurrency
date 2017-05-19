@@ -7,28 +7,11 @@ import java.util.function.Consumer;
 public class Main {
 
     public static void main(String[] args) {
+        SheepHerd herd = new SheepHerd();
 
-        //will make the main thread sleep.
-        //Thread.sleep(1000);
+        for (int i = 0; i < 10; i++) {
+            new Thread(()->herd.addSheepAndCount(), String.valueOf(i)).start();
+        }
 
-        //favour encapsulation over inheritance
-        Thread t = new Thread(() -> {
-            while (true){
-                System.out.println("Hello"); //do a mission
-                //will make the 2nd Thread sleep.
-                try {
-                    Thread.sleep(5000); //don't use the cpu
-                } catch (InterruptedException e) {
-                    //get rid of any resources and make the thread stop.
-                    //clean up
-                    e.printStackTrace();
-                }
-            }
-        });
-
-        t.start();
-
-
-        //t.interrupt();
     }
 }
