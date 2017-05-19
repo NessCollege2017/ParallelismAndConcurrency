@@ -7,35 +7,28 @@ import java.util.function.Consumer;
 public class Main {
 
     public static void main(String[] args) {
-	// write your code here
-        Thread t = new Thread(new Runnable() {
-            @Override
-            public void run() {
 
+        //will make the main thread sleep.
+        //Thread.sleep(1000);
+
+        //favour encapsulation over inheritance
+        Thread t = new Thread(() -> {
+            while (true){
+                System.out.println("Hello"); //do a mission
+                //will make the 2nd Thread sleep.
+                try {
+                    Thread.sleep(5000); //don't use the cpu
+                } catch (InterruptedException e) {
+                    //get rid of any resources and make the thread stop.
+                    //clean up
+                    e.printStackTrace();
+                }
             }
         });
 
         t.start();
 
-        new Thread(()->{}).start();
 
-        Runnable r = () -> {};
-        r.run();
-
-
-        Callable<String> c = ()-> "Hello world";
-
-        ArrayList<String> data = new ArrayList<>();
-        data.add("A");
-        data.add("B");
-        data.add("C");
-        data.add("D");
-
-
-
-
-
-        data.forEach((letter) -> System.out.println(letter.toLowerCase()));
-
+        //t.interrupt();
     }
 }
