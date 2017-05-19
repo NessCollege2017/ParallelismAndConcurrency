@@ -11,26 +11,21 @@ import java.util.concurrent.TimeUnit;
 public class Main {
 
     public static void main(String[] args) {
-        SheepHerd herd = new SheepHerd();
-        ExecutorService pool = Executors.newCachedThreadPool();
+        //consumer
+        //shutdown
+        ExecutorService threadPool = Executors.newFixedThreadPool(4);
+        for (int i = 0; i < 10; i++) {
+            threadPool.execute(() -> {
+                try {
+                    Thread.sleep(1000);
+                    threadPool.execute((Main::displayTime));
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            });
+        }
 
-
-        ScheduledExecutorService sched = Executors.newScheduledThreadPool(1);
-        sched.scheduleAtFixedRate(Main::displayTime, 1, 1, TimeUnit.SECONDS);
-
-        pool.execute(herd::addSheepAndCount);
-
-        ArrayList<String> data = new ArrayList<>();
-        data.add("A");
-        data.add("B");
-        data.add("C");
-        data.add("D");
-
-        data.forEach(Main::readData);
-
-        ExecutorService service = Executors.newFixedThreadPool(4);
-        service.execute(Main::doStuff);
-        service.shutdown();
+        threadPool.shutdown();
     }
 
     public static void doStuff(){
