@@ -14,4 +14,22 @@ public class Main {
         }
 
     }
+
+    final static Object LOCK = new Object();
+
+
+    public static void doSomeWork() throws InterruptedException {
+        System.out.println(Thread.currentThread().getName());
+        Thread.sleep(1000);
+
+        //Thread safe.
+        synchronized (LOCK){
+            //atomic unit of execution.
+            //increment your counter safely
+            System.out.println(Thread.currentThread().getName() + " IS Alone here");
+        }
+
+        Thread.sleep(1000);
+        System.out.println(Thread.currentThread().getName());
+    }
 }
