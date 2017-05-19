@@ -16,8 +16,6 @@ public class Main {
     }
 
     final static Object LOCK = new Object();
-
-
     public static void doSomeWork() throws InterruptedException {
         System.out.println(Thread.currentThread().getName());
         Thread.sleep(1000);
